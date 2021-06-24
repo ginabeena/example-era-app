@@ -43,7 +43,7 @@
 ```
 
 * Sample Type Information: https://github.com/ginabeena/example-era-app/blob/c32560a8439d928fc09c614c6bd8e378ffb0cc72/src/Shared/Shared.fs#L63
-* Note: you can make all string information "optional" by passing blank strings, except the ids which are always required.
+* Note: you can make all string information "optional" by passing blank strings, except the ids which are always required. You can makes the lists optional by passing an empty list (converted to a JavaScript Array).
 
 ## Tech Stack
 
