@@ -1,6 +1,6 @@
 # Example ERA Prototype App
 
-## Version 1: /submitReport Request:
+## Version 1: POST /submitReport Request:
 
 ```
  {
@@ -42,7 +42,7 @@
 
 ```
 
-## Version 1: /showReports Response:
+## Version 1: GET /showReports Response:
 
 ```
 {
