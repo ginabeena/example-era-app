@@ -1,5 +1,50 @@
 # Example ERA Prototype App
-This template can be used to generate a full-stack web application using the [SAFE Stack](https://safe-stack.github.io/). It was created using the dotnet [SAFE Template](https://safe-stack.github.io/docs/template-overview/). If you want to learn more about the template why not start with the [quick start](https://safe-stack.github.io/docs/quickstart/) guide?
+
+## Version 1: /submitReport Request:
+
+```
+ {
+    "queue_total": int64
+    "paid_count": int64
+    "timespan_days": int64
+    "rejected_count": int64
+    "reporter": {
+        "census_block_groups": string list;
+        "zipcode": string;
+        "county_name": string;
+        "city_name": string;
+        "name": string;
+        "id": string; 
+        }
+}      
+```
+
+## Version 1: /submitReport Response:
+
+```
+{
+    "submitted_on": string
+    "reporter": {
+        "census_block_groups": string list;
+        "zipcode": string;
+        "county_name": string;
+        "city_name": string;
+        "name": string;
+        "id": string; 
+        }
+    "queue_total": int64
+    "paid_count": int64
+    "timespan_days": int64
+    "rejected_count": int64
+    "version": string
+    "id": string
+}
+
+```
+
+Sample Type Information: https://github.com/ginabeena/example-era-app/blob/c32560a8439d928fc09c614c6bd8e378ffb0cc72/src/Shared/Shared.fs#L63
+
+This project uses [SAFE Stack](https://safe-stack.github.io/). It was created using the dotnet [SAFE Template](https://safe-stack.github.io/docs/template-overview/). If you want to learn more about the template why not start with the [quick start](https://safe-stack.github.io/docs/quickstart/) guide?
 
 ## Install pre-requisites
 You'll need to install the following pre-requisites in order to build SAFE applications
