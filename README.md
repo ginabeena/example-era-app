@@ -12,7 +12,7 @@
       "census_block_groups":[
          "01-234-567890-1"
       ],
-      "zipcode":"89102",
+      "zipcode":"32168",
       "county_name":"Volusia County",
       "city_name":"New Smyrna Beach",
       "name":"Gina Maini",
@@ -32,7 +32,7 @@
       "census_block_groups":[
          "01-234-567890-1"
       ],
-      "zipcode":"89102",
+      "zipcode":"32168",
       "county_name":"Volusia County",
       "city_name":"New Smyrna Beach",
       "name":"Gina Maini",
@@ -60,7 +60,7 @@
             "census_block_groups":[
                "01-234-567890-1"
             ],
-            "zipcode":"89102",
+            "zipcode":"32168",
             "county_name":"Volusia County",
             "city_name":"New Smyrna Beach",
             "name":"Gina Maini",
