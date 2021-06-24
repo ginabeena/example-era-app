@@ -13,4 +13,5 @@ node_modules/
 release.cmd
 release.sh
 *.orig
-*.DotSettings.user.DS_Store
+*.DotSettings.user
+.DS_Store
