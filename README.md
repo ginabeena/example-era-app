@@ -2,76 +2,86 @@
 
 ## Version 1: POST /submitReport Request:
 
+```json
+{
+   "queue_total":100,
+   "paid_count":30,
+   "timespan_days":30,
+   "rejected_count":10,
+   "reporter":{
+      "census_block_groups":[
+         "01-234-567890-1"
+      ],
+      "zipcode":"89102",
+      "county_name":"Volusia County",
+      "city_name":"New Smyrna Beach",
+      "name":"Gina Maini",
+      "id":"3bf8788f-6872-43be-b2f7-cb46a0ac8aeb"
+   }
+}  
 ```
- {
-    "queue_total": int64,
-    "paid_count": int64,
-    "timespan_days": int64,
-    "rejected_count": int64,
-    "reporter": {
-        "census_block_groups": string list,
-        "zipcode": string,
-        "county_name": string,
-        "city_name": string,
-        "name": string,
-        "id": string
-        }
-}      
-```
+
+* See also: [census block maps](https://www.census.gov/geographies/reference-maps/2010/geo/2010-census-block-maps.html)
 
 ## Version 1: /submitReport Response:
 
-```
+```json
 {
-    "submitted_on": string,
-    "reporter": {
-        "census_block_groups": string list,
-        "zipcode": string,
-        "county_name": string,
-        "city_name": string,
-        "name": string,
-        "id": string
-        }
-    "queue_total": int64,
-    "paid_count": int64,
-    "timespan_days": int64,
-    "rejected_count": int64,
-    "version": string,
-    "id": string
+   "submitted_on":"6/24/2021 12:00:00 AM",
+   "reporter":{
+      "census_block_groups":[
+         "01-234-567890-1"
+      ],
+      "zipcode":"89102",
+      "county_name":"Volusia County",
+      "city_name":"New Smyrna Beach",
+      "name":"Gina Maini",
+      "id":"3bf8788f-6872-43be-b2f7-cb46a0ac8aeb"
+   },
+   "queue_total":100,
+   "paid_count":30,
+   "timespan_days":30,
+   "rejected_count":4,
+   "version":"Alpha.01",
+   "id":"3bf8788f-6872-43be-b2f7-cb46a0ac8aeb",
+   "avg_waittime_30_days":15.2,
+   "p99_waittime_30_days":13.7
 }
-
 ```
 
 ## Version 1: GET /showReports Response:
 
-```
+```json
 {
-    "snapshots": [{
-        {
-            "submitted_on": string,
-            "reporter": {
-                    "census_block_groups": string list,
-                    "zipcode": string,
-                    "county_name": string,
-                    "city_name": string,
-                    "name": string,
-                    "id": string
-                    }
-            "queue_total": int64,
-            "paid_count": int64,
-            "timespan_days": int64,
-            "rejected_count": int64,
-            "version": string,
-            "id": string
-            }
-        }...],
-    "p99_waittime_30_days": int64,
-    "avg_waittime_30_days": int64
+   "snapshots":[
+      {
+         "submitted_on":"6/24/2021 12:00:00 AM",
+         "reporter":{
+            "census_block_groups":[
+               "01-234-567890-1"
+            ],
+            "zipcode":"89102",
+            "county_name":"Volusia County",
+            "city_name":"New Smyrna Beach",
+            "name":"Gina Maini",
+            "id":"3bf8788f-6872-43be-b2f7-cb46a0ac8aeb"
+         },
+         "queue_total":100,
+         "paid_count":30,
+         "timespan_days":30,
+         "rejected_count":4,
+         "version":"Alpha.01",
+         "id":"3bf8788f-6872-43be-b2f7-cb46a0ac8aeb"
+      }
+   ],
+   "p99_waittime_30_days":13.7,
+   "avg_waittime_30_days":15.2
 }
 ```
 
 * Sample Type Information: https://github.com/ginabeena/example-era-app/blob/c32560a8439d928fc09c614c6bd8e378ffb0cc72/src/Shared/Shared.fs#L63
-* Note: you can make all string information "optional" by passing blank strings, except the ids which are always required. You can makes the lists optional by passing an empty list (converted to a JavaScript Array).
+* Note: you can make all string information "optional" by passing blank strings, except the ids which are always required. You can makes the lists optional by passing an empty list (converted to a JavaScript Array). 
+* All integers are 64bit.
 
 ## Tech Stack
 
