@@ -45,6 +45,8 @@
 * Sample Type Information: https://github.com/ginabeena/example-era-app/blob/c32560a8439d928fc09c614c6bd8e378ffb0cc72/src/Shared/Shared.fs#L63
 * Note: you can make all string information "optional" by passing blank strings, except the ids which are always required.
 
+## Tech Stack
+
 This project uses [SAFE Stack](https://safe-stack.github.io/). It was created using the dotnet [SAFE Template](https://safe-stack.github.io/docs/template-overview/). If you want to learn more about the template why not start with the [quick start](https://safe-stack.github.io/docs/quickstart/) guide?
 
 ## Install pre-requisites
