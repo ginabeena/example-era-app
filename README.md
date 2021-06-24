@@ -43,7 +43,7 @@
    "timespan_days":30,
    "rejected_count":4,
    "version":"Alpha.01",
-   "id":"3bf8788f-6872-43be-b2f7-cb46a0ac8aeb",
+   "id":"c2ec7ea9-dae1-498e-b301-cac4adef97c9",
    "avg_waittime_30_days":15.2,
    "p99_waittime_30_days":13.7
 }
@@ -71,7 +71,7 @@
          "timespan_days":30,
          "rejected_count":4,
          "version":"Alpha.01",
-         "id":"3bf8788f-6872-43be-b2f7-cb46a0ac8aeb"
+         "id":"c2ec7ea9-dae1-498e-b301-cac4adef97c9"
       }
    ],
    "p99_waittime_30_days":13.7,
