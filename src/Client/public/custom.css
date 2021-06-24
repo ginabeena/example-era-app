@@ -1,0 +1,27 @@
+
+.field.is-grouped {
+    flex-direction: column;
+    text-align: center;
+}
+
+.field.is-grouped input {
+    margin-bottom: 1em;
+}
+
+.button.is-primary {
+    width: 100%;
+}
+
+nav.navbar {
+    width: 100% !important;
+    display: block !important;
+    flex-direction: !important column;
+}
+
+.nav-brand .navbar-tabs {
+    flex-direction: column !important;
+}
+
+.field.is-grouped h2 {
+    padding: 1em;
+}
