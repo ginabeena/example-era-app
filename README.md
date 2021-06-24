@@ -4,17 +4,17 @@
 
 ```
  {
-    "queue_total": int64
-    "paid_count": int64
-    "timespan_days": int64
-    "rejected_count": int64
+    "queue_total": int64,
+    "paid_count": int64,
+    "timespan_days": int64,
+    "rejected_count": int64,
     "reporter": {
-        "census_block_groups": string list;
-        "zipcode": string;
-        "county_name": string;
-        "city_name": string;
-        "name": string;
-        "id": string; 
+        "census_block_groups": string list,
+        "zipcode": string,
+        "county_name": string,
+        "city_name": string,
+        "name": string,
+        "id": string
         }
 }      
 ```
@@ -23,23 +23,51 @@
 
 ```
 {
-    "submitted_on": string
+    "submitted_on": string,
     "reporter": {
-        "census_block_groups": string list;
-        "zipcode": string;
-        "county_name": string;
-        "city_name": string;
-        "name": string;
-        "id": string; 
+        "census_block_groups": string list,
+        "zipcode": string,
+        "county_name": string,
+        "city_name": string,
+        "name": string,
+        "id": string
         }
-    "queue_total": int64
-    "paid_count": int64
-    "timespan_days": int64
-    "rejected_count": int64
-    "version": string
+    "queue_total": int64,
+    "paid_count": int64,
+    "timespan_days": int64,
+    "rejected_count": int64,
+    "version": string,
     "id": string
 }
 
+```
+
+## Version 1: /showReports Response:
+
+```
+{
+    "snapshots": [{
+        {
+            "submitted_on": string,
+            "reporter": {
+                    "census_block_groups": string list,
+                    "zipcode": string,
+                    "county_name": string,
+                    "city_name": string,
+                    "name": string,
+                    "id": string
+                    }
+            "queue_total": int64,
+            "paid_count": int64,
+            "timespan_days": int64,
+            "rejected_count": int64,
+            "version": string,
+            "id": string
+            }
+        }...],
+    "p99_waittime_30_days": int64,
+    "avg_waittime_30_days": int64
+}
 ```
 
 * Sample Type Information: https://github.com/ginabeena/example-era-app/blob/c32560a8439d928fc09c614c6bd8e378ffb0cc72/src/Shared/Shared.fs#L63
