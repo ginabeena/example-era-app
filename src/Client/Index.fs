@@ -111,7 +111,7 @@ let containerBox (model : Model) (dispatch : ReportView -> unit) =
             Content.Ol.ol [ ] [
                 for report in model.Reports do
                     li [ ] [ str report.submitted_on ]
-                    li [ ] [ str report.reporter ]
+                    li [ ] [ str report.reporter.id ]
                     li [ ] [ str (string report.queue_total) ]
                     li [ ] [ str (string report.paid_count) ]
                     li [ ] [ str (string report.timespan_days) ]
