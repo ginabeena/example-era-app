@@ -8,7 +8,7 @@ type Model =
     {
       UserPrompt: string
       Reports: EvictionsSnapshot list
-      Reporter: reporter
+      Reporter: Reporter
       TotalQueueLength: string
       TotalPaidCount: string
       TotalRejectedCount: string
@@ -16,7 +16,7 @@ type Model =
 
 type ReportView =
     | GotReports of EvictionsSnapshot list
-    | SetReporter of reporter
+    | SetReporter of Reporter
     | AddReport
     | TimeSpanInDaysSet of string
     | TotalQueueLengthSet of string
@@ -36,7 +36,7 @@ let init(): Model * Cmd<ReportView> =
     let model =
         {
           Reporter = reporter
-          UserPrompt = sprintf "Hi %s, please submit your report!" reporter.name
+          UserPrompt = sprintf "Hi %s, please submit your report!" reporter.Name
           Reports = []
           TotalQueueLength = ""
           TotalPaidCount = ""
@@ -76,7 +76,7 @@ let update (typing: ReportView) (model: Model): Model * Cmd<ReportView> =
     | SubmittedReport value ->
         { model with
             Reports = [value]
-            UserPrompt = sprintf "Successfully submitted report %s on %s" value.id value.submitted_on
+            UserPrompt = sprintf "Successfully submitted report %s on %s" value.Id value.SubmittedOn
             }, Cmd.none
 
 let isReady (m:Model) =
@@ -110,14 +110,14 @@ let containerBox (model : Model) (dispatch : ReportView -> unit) =
         Content.content [ ] [
             Content.Ol.ol [ ] [
                 for report in model.Reports do
-                    li [ ] [ str report.submitted_on ]
-                    li [ ] [ str report.reporter.id ]
-                    li [ ] [ str (string report.queue_total) ]
-                    li [ ] [ str (string report.paid_count) ]
-                    li [ ] [ str (string report.timespan_days) ]
-                    li [ ] [ str (string report.rejected_count) ]
-                    li [ ] [ str (string (report.average())) ]
-                    li [ ] [ str (string (report.p99_waittime_days())) ]
+                    li [ ] [ str report.SubmittedOn ]
+                    li [ ] [ str report.Reporter.Id ]
+                    li [ ] [ str (string report.QueueTotal) ]
+                    li [ ] [ str (string report.PaidCount) ]
+                    li [ ] [ str (string report.TimespanDays) ]
+                    li [ ] [ str (string report.RejectedCount) ]
+                    li [ ] [ str (string (report.Average())) ]
+                    li [ ] [ str (string (report.P99WaitTimeDays())) ]
             ]
         ]
 

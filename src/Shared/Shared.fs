@@ -4,53 +4,53 @@ open System
 open Thoth.Json
 
 [<Struct>]
-type reporter =
-    { census_block_groups: string list
-      zipcode: string
-      county_name: string
-      city_name: string
-      name: string
-      id: string }
+type Reporter =
+    { CensusBlockGroups: string list
+      Zipcode: string
+      CountyName: string
+      CityName: string
+      Name: string
+      Id: string }
 
 [<Struct>]
-type report =
-    { submitted_on: string
-      reporter: reporter
-      queue_total: int64
-      paid_count: int64
-      timespan_days: int64
-      rejected_count: int64
-      version: string
-      id: string }
+type Report =
+    { SubmittedOn: string
+      Reporter: Reporter
+      QueueTotal: int64
+      PaidCount: int64
+      TimespanDays: int64
+      RejectedCount: int64
+      Version: string
+      Id: string }
 
 module EvictionsReporting =
 
     let identifier () = Guid.NewGuid().ToString()
 
     let randomReporter () =
-        { census_block_groups =
+        { CensusBlockGroups =
               [ identifier ()
                 identifier ()
                 identifier () ]
-          zipcode = "00000"
-          county_name = "Randomtown"
-          city_name = "Randomville"
-          name = "Jane Doe"
-          id = identifier () }
+          Zipcode = "00000"
+          CountyName = "Randomtown"
+          CityName = "Randomville"
+          Name = "Jane Doe"
+          Id = identifier () }
 
-    type required_info =
-        { reporter: reporter
-          queue_total: int64
-          paid_count: int64
-          rejected_count: int64
-          timespan_days: int64 }
+    type RequiredInfo =
+        { Reporter: Reporter
+          QueueTotal: int64
+          PaidCount: int64
+          RejectedCount: int64
+          TimespanDays: int64 }
 
-    let seed (reporter, queue_total, paid_count, rejected_count, timespan_days) =
-        { reporter = reporter
-          queue_total = queue_total
-          paid_count = paid_count
-          rejected_count = rejected_count
-          timespan_days = timespan_days }
+    let seed (reporter, queueTotal, paidCount, rejectedCount, timespan_days) =
+        { Reporter = reporter
+          QueueTotal = queueTotal
+          PaidCount = paidCount
+          RejectedCount = rejectedCount
+          TimespanDays = timespan_days }
 
     let isValid s =
         try
@@ -59,70 +59,70 @@ module EvictionsReporting =
         with
         | _ -> false
 
-type EvictionsSnapshot(required: EvictionsReporting.required_info) =
+type EvictionsSnapshot(required: EvictionsReporting.RequiredInfo) =
 
-    member __.version = "Alpha.01"
-    member __.id = EvictionsReporting.identifier ()
-    member __.submitted_on = DateTime.Today.ToString()
-    member __.queue_total = required.queue_total
-    member __.paid_count = required.paid_count
-    member __.rejected_count = required.rejected_count
-    member __.timespan_days = required.timespan_days
-    member __.reporter = required.reporter
+    member __.Version = "Alpha.01"
+    member __.Id = EvictionsReporting.identifier ()
+    member __.SubmittedOn = DateTime.Today.ToString()
+    member __.QueueTotal = required.QueueTotal
+    member __.PaidCount = required.PaidCount
+    member __.RejectedCount = required.RejectedCount
+    member __.TimespanDays = required.TimespanDays
+    member __.Reporter = required.Reporter
 
-    member __.average() =
-        ((__.rejected_count + __.paid_count)
-         / int64 __.timespan_days)
+    member __.Average() =
+        ((__.RejectedCount + __.PaidCount)
+         / int64 __.TimespanDays)
 
-    member __.p99_waittime_days() =
+    member __.P99WaitTimeDays() =
         (float (
-            (__.rejected_count + __.paid_count)
-            / __.timespan_days
+            (__.RejectedCount + __.PaidCount)
+            / __.TimespanDays
         ))
         * 0.99
 
-    member __.report =
-        { reporter = __.reporter
-          queue_total = __.queue_total
-          paid_count = __.paid_count
-          timespan_days = __.timespan_days
-          rejected_count = __.rejected_count
-          submitted_on = __.submitted_on
-          version = __.version
-          id = __.id }
+    member __.Report =
+        { Reporter = __.Reporter
+          QueueTotal = __.QueueTotal
+          PaidCount = __.PaidCount
+          TimespanDays = __.TimespanDays
+          RejectedCount = __.RejectedCount
+          SubmittedOn = __.SubmittedOn
+          Version = __.Version
+          Id = __.Id }
 
     member __.ToJson() : JsonValue =
-        Encode.object [ "version", Encode.string __.version
-                        "id", Encode.string __.id
-                        "submitted_on", Encode.string __.submitted_on
-                        "queue_total", Encode.int64 __.queue_total
-                        "paid_count", Encode.int64 __.paid_count
-                        "rejected_count", Encode.int64 __.rejected_count
-                        "timespan_days", Encode.int64 __.timespan_days
+        Encode.object [ "version", Encode.string __.Version
+                        "id", Encode.string __.Id
+                        "submitted_on", Encode.string __.SubmittedOn
+                        "queue_total", Encode.int64 __.QueueTotal
+                        "paid_count", Encode.int64 __.PaidCount
+                        "rejected_count", Encode.int64 __.RejectedCount
+                        "timespan_days", Encode.int64 __.TimespanDays
                         "reporter",
                         Encode.object [ "census_block_groups",
-                                        Encode.list (List.map Encode.string __.reporter.census_block_groups)
-                                        "zipcode", Encode.string __.reporter.zipcode
-                                        "county_name", Encode.string __.reporter.county_name
-                                        "city_name", Encode.string __.reporter.city_name
-                                        "name", Encode.string __.reporter.name
-                                        "id", Encode.string __.reporter.id ] ]
+                                        Encode.list (List.map Encode.string __.Reporter.CensusBlockGroups)
+                                        "zipcode", Encode.string __.Reporter.Zipcode
+                                        "county_name", Encode.string __.Reporter.CountyName
+                                        "city_name", Encode.string __.Reporter.CityName
+                                        "name", Encode.string __.Reporter.Name
+                                        "id", Encode.string __.Reporter.Id ] ]
 
     static member FromJson(json: JsonValue) : Decoder<EvictionsSnapshot> =
-        let requiredInfo (get: Decode.IGetters) : EvictionsReporting.required_info =
-            { reporter =
-                  { id = get.Required.Field "id" Decode.string
-                    name = get.Required.Field "name" Decode.string
-                    city_name = get.Required.Field "city_name" Decode.string
-                    county_name = get.Required.Field "county_name" Decode.string
-                    census_block_groups =
+        let requiredInfo (get: Decode.IGetters) : EvictionsReporting.RequiredInfo =
+            { Reporter =
+                  { Id = get.Required.Field "id" Decode.string
+                    Name = get.Required.Field "name" Decode.string
+                    CityName = get.Required.Field "city_name" Decode.string
+                    CountyName = get.Required.Field "county_name" Decode.string
+                    CensusBlockGroups =
                         get.Required.Field "census_block_groups"
                         <| Decode.list Decode.string
-                    zipcode = get.Required.Field "zipcode" Decode.string }
-              queue_total = get.Required.Field "queue_total" Decode.int64
-              paid_count = get.Required.Field "paid_count" Decode.int64
-              rejected_count = get.Required.Field "queue_total" Decode.int64
-              timespan_days = get.Required.Field "timespan_days" Decode.int64 }
+                    Zipcode = get.Required.Field "zipcode" Decode.string }
+              QueueTotal = get.Required.Field "queue_total" Decode.int64
+              PaidCount = get.Required.Field "paid_count" Decode.int64
+              RejectedCount = get.Required.Field "queue_total" Decode.int64
+              TimespanDays = get.Required.Field "timespan_days" Decode.int64 }
 
         Decode.object (requiredInfo >> EvictionsSnapshot)
 
@@ -132,4 +132,4 @@ module Route =
 
 type IReportsApi =
     { showReports: unit -> Async<EvictionsSnapshot list>
-      submitReport: EvictionsReporting.required_info -> Async<EvictionsSnapshot> }
+      submitReport: EvictionsReporting.RequiredInfo -> Async<EvictionsSnapshot> }
