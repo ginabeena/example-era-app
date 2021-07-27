@@ -15,3 +15,5 @@ release.sh
 *.orig
 *.DotSettings.user
 .DS_Store
+/src/Server/Properties/launchSettings.json
+/src/Server/Server.fsproj.user

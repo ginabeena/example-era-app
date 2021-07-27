@@ -24,8 +24,8 @@ type Storage () =
 let storage = Storage()
 
 let reportsApi =
-    { showReports = fun () -> async { return storage.ShowReports() }
-      submitReport =
+    { ShowReports = fun () -> async { return storage.ShowReports() }
+      SubmitReport =
         fun (required) -> async {
             let snap = EvictionsSnapshot(required)
             let submission = storage.SubmitReport(snap)
